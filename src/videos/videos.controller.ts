@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
@@ -12,13 +12,13 @@ export class VideosController {
     return this.videosService.create(createVideoDto);
   }
 
-  @Get()
-  findAll() {
+  @Get() //use query to get params that come in url
+  findAll(@Query() query:string) { //@Query() query:string all query // @Query('id') query:string paramID 
     return this.videosService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string) { //esto se utiliza para usar params llamado id ej http://localhost:3000/videos/video-1
     return this.videosService.findOne(+id);
   }
 
