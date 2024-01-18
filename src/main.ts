@@ -1,11 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { VersioningType } from '@nestjs/common';
 // import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.useGlobalPipes(new ValidationPipe()) this is for global pipe
+
+  //enable cors
+  app.enableCors()
+
+  app.enableVersioning({
+    defaultVersion:"1",
+    type: VersioningType.URI,
+  });
 
   const config = new DocumentBuilder()
   .addBearerAuth()
