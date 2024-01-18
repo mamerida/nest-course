@@ -1,14 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('videos')
 @Controller('videos')
+@UsePipes(new ValidationPipe) //use pipes to filter or transform data in this case filter
 export class VideosController {
   constructor(private readonly videosService: VideosService) {}
 
   @Post()
-  create(@Body() createVideoDto: CreateVideoDto) {
+  create(@Body() createVideoDto: CreateVideoDto) { 
     return this.videosService.create(createVideoDto);
   }
 
