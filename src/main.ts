@@ -8,6 +8,7 @@ async function bootstrap() {
   // app.useGlobalPipes(new ValidationPipe()) this is for global pipe
 
   const config = new DocumentBuilder()
+  .addBearerAuth()
   .setTitle('Api documentation')
   .setDescription('The cats API description')
   .setVersion('1.0')
